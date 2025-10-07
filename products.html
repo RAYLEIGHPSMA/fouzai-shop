@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منتجات Fouzai Shop</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Fouzai Shop</h1>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="products.html">المنتجات</a>
+        <a href="cart.html">السلة</a>
+        <a href="contact.html">تواصل معنا</a>
+        <a href="admin/admin.html">Admin Panel</a>
+    </nav>
+</header>
+
+<main>
+    <h2>منتجاتنا</h2>
+    <div class="products-container" id="products-container"></div>
+</main>
+
+<a class="whatsapp-btn" href="https://wa.me/212629568041" target="_blank">
+    💬 تواصل معنا
+</a>
+
+<script src="script.js"></script>
+<script>
+function loadProducts() {
+    const container = document.getElementById("products-container");
+    let products = JSON.parse(localStorage.getItem("products")) || [
+        {name:"قفطان مغربي", price:750, img:"images/caftan.jpg"},
+        {name:"سوار تقليدي", price:120, img:"images/bracelet.jpg"},
+        {name:"زيت الأرغان", price:90, img:"images/oil.jpg"}
+    ];
+
+    localStorage.setItem("products", JSON.stringify(products));
+
+    let html = "";
+    products.forEach(p => {
+        html += `<div class="product">
+            <img src="${p.img}" alt="${p.name}">
+            <h3>${p.name}</h3>
+            <p>${p.price} درهم</p>
+            <button onclick="addToCart('${p.name}', ${p.price})">أضف للسلة</button>
+        </div>`;
+    });
+
+    container.innerHTML = html;
+}
+
+document.addEventListener("DOMContentLoaded", loadProducts);
+</script>
+</body>
+</html>
